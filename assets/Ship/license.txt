@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cargo Ship 04
+* source:	https://sketchfab.com/3d-models/cargo-ship-04-5778db110b5d4a71a2f0c8b73fa6e1bc
+* author:	gogiart (https://sketchfab.com/agt14032013)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cargo Ship 04" (https://sketchfab.com/3d-models/cargo-ship-04-5778db110b5d4a71a2f0c8b73fa6e1bc) by gogiart (https://sketchfab.com/agt14032013) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
