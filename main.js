@@ -29,8 +29,7 @@ function init() {
   camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
   camera.position.set( 30, 30, 100 );
 
-  //
-
+  
   sun = new THREE.Vector3();
 
   // Water
