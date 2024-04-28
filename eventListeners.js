@@ -6,6 +6,7 @@ export function setupControls(controls) {
     controls.update();
   }
   
+  
   export function setupKeyEvents(ship) {
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowUp") {

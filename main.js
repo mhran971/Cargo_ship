@@ -5,6 +5,7 @@ import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
 
+
 let camera, scene, renderer;
 let ship;
 

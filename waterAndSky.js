@@ -2,6 +2,7 @@ import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
 import * as THREE from 'three';
 
+
 export function initWaterAndSky(scene, renderer) {
   const sun = new THREE.Vector3();
 
