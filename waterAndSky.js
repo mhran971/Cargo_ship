@@ -15,7 +15,7 @@ export function initWaterAndSky(scene, renderer) {
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     }),
     sunDirection: new THREE.Vector3(),
-    sunColor: 0xffffff,
+    sunColor: 0xffff00,
     waterColor: 0x001e0f,
     distortionScale: 3.7,
     fog: scene.fog !== undefined,

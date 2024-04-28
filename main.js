@@ -5,9 +5,9 @@ import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
 
-
 let camera, scene, renderer;
 let ship;
+let water; // Declare the 'water' variable outside the init() function
 
 function init() {
   // Renderer setup
@@ -26,7 +26,8 @@ function init() {
   camera.position.set(30, 30, 100);
 
   // Initialize water and sky
-  const { water, sky } = initWaterAndSky(scene, renderer);
+  const { water: waterObj, sky } = initWaterAndSky(scene, renderer);
+  water = waterObj; // Assign the 'water' variable
 
   // Ship setup
   ship = new Ship(scene);
@@ -51,6 +52,7 @@ function onWindowResize() {
 function animate() {
   requestAnimationFrame(animate);
   ship.update();
+  water.material.uniforms["time"].value += 1.0 / 60.0; // Update the time property for the water waves
   render();
 }
 
