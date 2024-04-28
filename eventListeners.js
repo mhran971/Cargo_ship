@@ -16,10 +16,10 @@ export function setupControls(controls) {
         ship.speed.rot = 1;
       }
       if (e.key === "ArrowLeft") {
-        ship.speed.vel = 0.1;
+        ship.speed.vel = 0.01;
       }
       if (e.key === "ArrowRight") {
-        ship.speed.vel = -0.1;
+        ship.speed.vel = -0.01;
       }
     });
   

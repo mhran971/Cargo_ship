@@ -64,6 +64,7 @@ export function initWaterAndSky(scene, renderer) {
   };
 
   updateSun();
+  
 
   return { water, sky };
 }

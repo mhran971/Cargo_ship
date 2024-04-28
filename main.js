@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
+import { setupGUI } from './gui';
+import { timeParams } from './gui.js';
 
 let camera, scene, renderer;
 let ship;
@@ -27,10 +29,14 @@ function init() {
 
   // Initialize water and sky
   const { water: waterObj, sky } = initWaterAndSky(scene, renderer);
-  water = waterObj; // Assign the 'water' variable
+  water = waterObj;
 
-  // Ship setup
+// Ship setup
   ship = new Ship(scene);
+
+// Setup GUI
+  const gui = setupGUI(water, ship);
+  gui.open();
 
   // Controls setup
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -52,7 +58,7 @@ function onWindowResize() {
 function animate() {
   requestAnimationFrame(animate);
   ship.update();
-  water.material.uniforms["time"].value += 1.0 / 60.0; // Update the time property for the water waves
+  water.material.uniforms['time'].value += timeParams.speed / 60.0;
   render();
 }
 
