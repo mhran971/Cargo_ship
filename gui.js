@@ -15,7 +15,7 @@ export function setupGUI(water, ship) {
     };
     
     var allVariablesSet = false;
-    
+    var floating =true;
     // Calculate W and F
     var calculate = function () {
     if (setVariablesSetFlag) {
@@ -28,9 +28,11 @@ export function setupGUI(water, ship) {
     
     if (F < W)
      { 
-        // addEventListener(sink,)
+        floating =false;
       alert('The results: '  + '\nthe ship will sink ');
-}}
+      
+      ship.speed.pos -= 10;
+    }}
 }
     // Create a folder for the variables
     var variablesFolder = gui.addFolder('Floating');

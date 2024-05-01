@@ -21,11 +21,7 @@ export function setupControls(controls) {
       if (e.key === "ArrowRight") {
         ship.speed.vel = -0.01;
       }});
-      window.addEventListener("keydown", (e) => {
-      if (e.key === "e") {
-        ship.speed.pos -= 0.1;
-      }
-    });
+     
   
     window.addEventListener("keyup", () => {
       ship.stop();
