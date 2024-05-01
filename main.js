@@ -4,8 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
-import { setupGUI } from './gui';
-import { timeParams } from './gui.js';
+import { timeParams ,setupGUI } from './gui.js';
 
 let camera, scene, renderer;
 let ship;
