@@ -24,15 +24,29 @@ export function setupGUI(water, ship) {
     var F = variables.R * variables.V * variables.g;
   
     // Or display the results in an alert box
-    alert('W: ' + W + '\nF: ' + F);
+    //alert('W: ' + W + '\nF: ' + F);
     
-    if (F < W)
-     { 
-        floating =false;
-      alert('The results: '  + '\nthe ship will sink ');
+    if (F < W) {
+        var floating = false;
+        // alert('The ship will sink');
       
-      ship.speed.pos -= 10;
-    }}
+        var startTime = Date.now();
+        var duration = 5000; // Two seconds
+      
+        function updateShipPosition() {
+          var elapsed = Date.now() - startTime;
+          var progress = elapsed / duration;
+          var deltaPos = 0.2 * progress;
+          ship.speed.pos -= deltaPos;
+      
+          if (elapsed < duration) {
+            setTimeout(updateShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
+          }
+        }
+      
+        updateShipPosition();
+      }
+    }
 }
     // Create a folder for the variables
     var variablesFolder = gui.addFolder('Floating');
