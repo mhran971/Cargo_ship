@@ -1,10 +1,10 @@
 import './style.css';
 import * as THREE from 'three';
+import { timeParams ,setupGUI } from './gui.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
-import { timeParams ,setupGUI } from './gui.js';
 
 let camera, scene, renderer;
 let ship;
