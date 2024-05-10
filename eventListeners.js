@@ -10,7 +10,7 @@ export function setupControls(controls) {
   export function setupKeyEvents(ship) {
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowUp") {
-        ship.speed.rot = -1;
+        ship.speed.rot = -window.firstDigit;
       }
       if (e.key === "ArrowDown") {
         ship.speed.rot = 1;
