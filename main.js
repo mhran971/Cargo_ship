@@ -5,6 +5,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
+import { loadSound } from './sound.js';
+
+const audioFilePath = 'sound/turning_on.mp3';
+const secondAudioFilePath = 'sound/rest.mp3'
+loadSound(audioFilePath);
 
 let camera, scene, renderer;
 let ship;

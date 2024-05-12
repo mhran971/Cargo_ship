@@ -114,8 +114,8 @@ export function setupGUI(water, ship) {
     const digitsAfterDecimal = parseFloat(num.toString().slice(1, 7)); // Extract the 6 digits after the decimal point
     
     window.firstDigit = parseFloat(`${digitsBeforeDecimal}.${digitsAfterDecimal}`);
-    
-      confirm('\nTotal force: ' + window.firstDigit);
+    window.firstDigit =window.firstDigit*0.5;
+      confirm('\nTotal force simulation: ' + window.firstDigit);
     
   };
 
