@@ -63,6 +63,24 @@ export function setupGUI(water, ship) {
     
                 updateShipPosition();
             }
+            else if (variables.g < 5){
+              var startTime = Date.now();
+              var duration = 5000; // Five seconds
+    
+              function flyShipPosition() {
+                var elapsed = Date.now() - startTime;
+                var progress = elapsed / duration;
+                var deltaPos = 2 * progress;
+                ship.speed.pos += deltaPos;
+            
+                if (elapsed < duration) {
+                  setTimeout(flyShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
+                }
+              }
+            
+              flyShipPosition();
+            }
+
         }
     };
 

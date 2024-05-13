@@ -5,17 +5,21 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
-import { loadSound } from './sound.js';
+import SoundPlayer from './sound';
 
 const audioFilePath = 'sound/turning_on.mp3';
 const secondAudioFilePath = 'sound/rest.mp3'
-loadSound(audioFilePath);
+const firstAudioFilePath = 'sound/beganing.mp3';
+
+const soundPlayer = new SoundPlayer();
+soundPlayer.loadSound(firstAudioFilePath);
 
 let camera, scene, renderer;
 let ship;
 let water; // Declare the 'water' variable outside the init() function
 
 function init() {
+  
   // Renderer setup
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -35,10 +39,10 @@ function init() {
   const { water: waterObj, sky } = initWaterAndSky(scene, renderer);
   water = waterObj;
 
-// Ship setup
+  // Ship setup
   ship = new Ship(scene);
 
-// Setup GUI
+  // Setup GUI
   const gui = setupGUI(water, ship);
   gui.open();
 
