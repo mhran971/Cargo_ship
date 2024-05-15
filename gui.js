@@ -34,56 +34,6 @@ export function setupGUI(water, ship) {
   var floating = true;
   window.firstDigit = 0;
 
-      // Calculate W and F
-      var calculateFloating = function () {
-        if (setVariablesSetFlagofFloating) {
-            var W = variables.m * variables.g;
-            var F = variables.R * variables.V * variables.g;
-    
-            // Or display the results in an alert box
-            confirm('W: ' + W + '\nF: ' + F);
-    
-            if (F < W) {
-                floating = false;
-                confirm('The ship will sink');
-    
-                var startTime = Date.now();
-                var duration = 5000; // Five seconds
-    
-                function updateShipPosition() {
-                    var elapsed = Date.now() - startTime;
-                    var progress = elapsed / duration;
-                    var deltaPos = 0.2 * progress;
-                    ship.speed.pos -= deltaPos;
-    
-                    if (elapsed < duration) {
-                        setTimeout(updateShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
-                    }
-                }
-    
-                updateShipPosition();
-            }
-            else if (variables.g < 5){
-              var startTime = Date.now();
-              var duration = 5000; // Five seconds
-    
-              function flyShipPosition() {
-                var elapsed = Date.now() - startTime;
-                var progress = elapsed / duration;
-                var deltaPos = 2 * progress;
-                ship.speed.pos += deltaPos;
-            
-                if (elapsed < duration) {
-                  setTimeout(flyShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
-                }
-              }
-            
-              flyShipPosition();
-            }
-
-        }
-    };
-
   var calculateFrictionofwater = function (v1) {
     if (setVariablesSetFlagofFrictionofwater) {
       //var speedofwater = water.material.uniforms['time'].value = v1 / 60.0;
@@ -137,23 +87,7 @@ export function setupGUI(water, ship) {
     
   };
 
-
-     ///////////////////////////////////////////////////////////////////\
-     /////////////////Floating//////////////////////////////////////////////\
-     //////////////////////////////////////////////////////////////////\  
-    var variablesFolder = gui.addFolder('Floating');
     
-    // Add event listeners to trigger the calculation when inputs change
-    variablesFolder.add(variables, 'm').name('Mass (Kg)').onChange(setVariablesSetFlagofFloating);
-    variablesFolder.add(variables, 'g').name('Gravity (m.s-2)').onChange(setVariablesSetFlagofFloating);
-    variablesFolder.add(variables, 'R').name('Radius (Kg.m-3)').onChange(setVariablesSetFlagofFloating);
-    variablesFolder.add(variables, 'V').name('Velocity (m-3)').onChange(setVariablesSetFlagofFloating);
-    
-     // Create a button to initiate the calculation and display results
-     var calculateButton = { calculate: calculateFloating };
-     variablesFolder.add(calculateButton, 'calculate').name('Calculate W and F');
-
-     ///////////////////////////////////////////////////////////////////\
      /////////////////Water//////////////////////////////////////////////\
      //////////////////////////////////////////////////////////////////\  
 

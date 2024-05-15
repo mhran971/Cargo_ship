@@ -1,14 +1,15 @@
 import './style.css';
 import * as THREE from 'three';
-import { timeParams ,setupGUI } from './gui.js';
+import { timeParams, setupGUI as setupTimeGUI } from './gui.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
 import SoundPlayer from './sound';
+import { Floating, setupGUI as setupFloatingGUI } from './floating';
 
 const audioFilePath = 'sound/turning_on.mp3';
-const secondAudioFilePath = 'sound/rest.mp3'
+const secondAudioFilePath = 'sound/rest.mp3';
 const firstAudioFilePath = 'sound/beganing.mp3';
 
 const soundPlayer = new SoundPlayer();
@@ -19,7 +20,6 @@ let ship;
 let water; // Declare the 'water' variable outside the init() function
 
 function init() {
-  
   // Renderer setup
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -42,8 +42,11 @@ function init() {
   // Ship setup
   ship = new Ship(scene);
 
-  // Setup GUI
-  const gui = setupGUI(water, ship);
+  // Setup Floating GUI
+  setupFloatingGUI(water, ship);
+
+  // Setup Time GUI
+  const gui = setupTimeGUI(water, ship);
   gui.open();
 
   // Controls setup
@@ -55,6 +58,10 @@ function init() {
 
   // Window resize event
   window.addEventListener('resize', onWindowResize);
+
+  // Floating instance setup
+  const floatingInstance = new Floating();
+  floatingInstance.calculateFloating(ship);
 }
 
 function onWindowResize() {
