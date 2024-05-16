@@ -74,19 +74,3 @@ export class Floating {
     }
 }
 
-export function setupGUI(water, ship) {
-    const floatingInstance = new Floating();
-    const gui = new dat.GUI();
-
-    const variablesFolder = gui.addFolder('Floating');
-
-    variablesFolder.add(floatingInstance.variables, 'm').name('Mass (Kg)').onChange((value) => floatingInstance.setVariable('m', value));
-    variablesFolder.add(floatingInstance.variables, 'g').name('Gravity (m.s-2)').onChange((value) => floatingInstance.setVariable('g', value));
-    variablesFolder.add(floatingInstance.variables, 'R').name('Radius (Kg.m-3)').onChange((value) => floatingInstance.setVariable('R', value));
-    variablesFolder.add(floatingInstance.variables, 'V').name('Velocity (m-3)').onChange((value) => floatingInstance.setVariable('V', value));
-
-    const calculateButton = { calculate: () => floatingInstance.calculateFloating(ship) };
-    variablesFolder.add(calculateButton, 'calculate').name('Calculate W and F');
-
-   
-}

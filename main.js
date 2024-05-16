@@ -6,7 +6,10 @@ import { initWaterAndSky } from './waterAndSky';
 import { Ship } from './ship';
 import { setupControls, setupKeyEvents } from './eventListeners';
 import SoundPlayer from './sound';
-import { Floating, setupGUI as setupFloatingGUI } from './floating';
+import { Floating } from './floating';
+import { ThrustForce } from './thrustForce';
+import { setupGUI as setupinputGUI  } from './inputs';
+
 
 const audioFilePath = 'sound/turning_on.mp3';
 const secondAudioFilePath = 'sound/rest.mp3';
@@ -42,10 +45,8 @@ function init() {
   // Ship setup
   ship = new Ship(scene);
 
-  // Setup Floating GUI
-  setupFloatingGUI(water, ship);
-
   // Setup Time GUI
+  setupinputGUI(water,ship);
   const gui = setupTimeGUI(water, ship);
   gui.open();
 
@@ -62,6 +63,10 @@ function init() {
   // Floating instance setup
   const floatingInstance = new Floating();
   floatingInstance.calculateFloating(ship);
+
+  // ThrustForce instance setup
+  const thrustforceInstance = new ThrustForce();
+  thrustforceInstance.calculateThrustForce(ship);
 }
 
 function onWindowResize() {
