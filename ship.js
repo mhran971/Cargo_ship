@@ -14,7 +14,9 @@ export class Ship {
       this.speed = {
         vel: 0,
         rot: 0,
-        pos :7.5
+        pos :7.5,
+        z:0
+
       };
     });
   }
@@ -23,6 +25,7 @@ export class Ship {
     this.speed.vel = 0;
     this.speed.rot = 0;
     this.speed.pos = 7.5;
+    this.ship.z = 0
   }
 
   update() {
@@ -30,6 +33,7 @@ export class Ship {
       this.ship.rotateY(this.speed.vel);
       this.ship.translateX(this.speed.rot);
       this.ship.position.y = this.speed.pos;
+      this.ship.rotateX(this.speed.z)
     }
   }
 }

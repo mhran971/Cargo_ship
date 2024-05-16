@@ -48,9 +48,10 @@ export class Floating {
                 const flyShipPosition = () => {
                     const elapsed = Date.now() - startTime;
                     const progress = elapsed / duration;
-                    const deltaPos = 2 * progress;
-                    ship.speed.pos += deltaPos;
-
+                    const deltaPos = (10 - this.variables.g ) * progress;
+                   ship.speed.pos += 1.5*deltaPos;
+                  //  ship.speed.vel += 0.006*deltaPos;
+                    ship.speed.z += 0.04*deltaPos;
                     if (elapsed < duration) {
                         setTimeout(flyShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
                     }
@@ -66,7 +67,7 @@ export class Floating {
     }
 
     areAllVariablesSetofFloating() {
-        return this.variables.m !== 0 && this.variables.g !== 0 && this.variables.R !== 0 && this.variables.V !== 0;
+        return this.variables.m !== 0  && this.variables.R !== 0 && this.variables.V !== 0;
     }
 
     setVariable(name, value) {

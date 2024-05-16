@@ -16,7 +16,7 @@ const secondAudioFilePath = 'sound/rest.mp3';
 const firstAudioFilePath = 'sound/beganing.mp3';
 
 const soundPlayer = new SoundPlayer();
-soundPlayer.loadSound(firstAudioFilePath);
+soundPlayer.loadSound(audioFilePath);
 
 let camera, scene, renderer;
 let ship;

@@ -12,9 +12,6 @@ export function setupGUI(water, ship) {
   const gui = new dat.GUI();
   
   var variables = {
-    F1: 0,
-    F2: 0,
-    F3: 0,
     total: 0,
   };
 
@@ -22,8 +19,7 @@ export function setupGUI(water, ship) {
 
   var calculateFrictionofThrustForceTotally = function () {
     if (setVariablesSetFlagofFrictionofThrustForceTotally) {
-        total=WaterFriction.F1+AirFriction.F2+ThrustForce.F3;
-      // Display the result
+        variables.total = WaterFriction.variables.total + AirFriction.variables.total + ThrustForce.variables.total;      // Display the result
       confirm('\nTotal force: ' + variables.total);
     }
   };
