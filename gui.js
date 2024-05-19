@@ -2,12 +2,12 @@ import * as dat from 'dat.gui';
 import { ThrustForce } from './thrustForce';
 import { AirFriction } from './airFriction';
 import { WaterFriction } from './waterFriction';
-
+import { Total } from './total';
 export const timeParams = {
   speed: 1.0,
 };
 
-
+new ThrustForce(); // Initialize ThrustForce which
 export function setupGUI(water, ship) {
   const gui = new dat.GUI();
   
@@ -17,15 +17,8 @@ export function setupGUI(water, ship) {
 
   window.firstDigit = 0;
 
-  var calculateFrictionofThrustForceTotally = function () {
-    if (setVariablesSetFlagofFrictionofThrustForceTotally) {
-        variables.total = WaterFriction.variables.total + AirFriction.variables.total + ThrustForce.variables.total;      // Display the result
-      confirm('\nTotal force: ' + variables.total);
-    }
-  };
-
-  var calculate = function () {
-    const num = variables.total; // Assuming variables.total is the number (e.g., x.3133124)
+ var calculate = function() {
+    const num = window.totalforce; // Assuming variables.total is the number (e.g., x.3133124)
     const digitsBeforeDecimal = parseInt(num.toString().charAt(0)); // Extract the first digit before the decimal point
     const digitsAfterDecimal = parseFloat(num.toString().slice(1, 7)); // Extract the 6 digits after the decimal point
     
@@ -35,21 +28,20 @@ export function setupGUI(water, ship) {
     
   };
 
-      var calculateButton = { calculate: calculateFrictionofThrustForceTotally };
-      gui.add(calculateButton, 'calculate').name('Calculate force of Thrust Force totally');
+
+  
+  const calculateFrictionofThrustForceTotally = function () {
+    confirm(`\nTotal force of thrust: ${window.totalforce} N`);
+  };
+  var calculateButton = { calculate: calculateFrictionofThrustForceTotally };
+  gui.add(calculateButton, 'calculate').name('Calculate force of Thrust Force totally');
+
+    
      ///////////////////////////////////////////////////////////////////////////
       var calculateButton = { calculate: calculate };
       gui.add(calculateButton, 'calculate').name('Calculate speed of cargo ship');
      
-     
-   function setVariablesSetFlagofFrictionofThrustForceTotally() {
-    allVariablesSet = setVariablesSetFlagofFrictionofThrustForceTotally(); 
-  }
-    
-    function setVariablesSetFlagofFrictionofThrustForceTotally() {
-    return WaterFriction.F1 !== 0 && AirFriction.F2 !== 0 && ThrustForce.F3 !== 0;
-   }
-     
+  
 
    gui.add(timeParams, 'speed', -20.0, 20.0)
    .name('Water Speed (m.s-1)')
@@ -71,4 +63,4 @@ export function setupGUI(water, ship) {
     
     return gui;
     
-}
+    }
