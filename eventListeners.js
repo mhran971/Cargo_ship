@@ -16,7 +16,7 @@ export function setupKeyEvents(ship) {
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp") {
-      ship.speed.rot = -window.firstDigit;
+      ship.speed.rot = -window.firstDigit*counter;
       if (!intervalId) {
         intervalId = setInterval(() => {
           if (counter < maxCounter) {
