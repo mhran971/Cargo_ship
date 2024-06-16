@@ -72,7 +72,7 @@ export function setupKeyEvents(ship) {
             clearInterval(decrementIntervalId);
             decrementIntervalId = null;
           }
-        }, incrementTime);
+        }, 2000);
       }
     }
   });

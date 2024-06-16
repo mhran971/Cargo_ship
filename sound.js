@@ -21,7 +21,7 @@ class SoundPlayer {
           }
         }
       });
-
+      
       this.audio.onEnded = () => {
         this.isSoundPlaying = false;
         this.loadSecondSound();
@@ -30,7 +30,7 @@ class SoundPlayer {
   }
 
   loadSecondSound() {
-    const secondAudioFilePath = 'sound/rest.mp3';//C:\three.js_projects\Cargo_Ship\Cargo_ship\sound\turning_on.mp3
+    const secondAudioFilePath = 'sound/rest.mp3';
     this.audioLoader.load(secondAudioFilePath, (buffer) => {
       const secondAudio = new THREE.Audio(this.listener);
       secondAudio.setBuffer(buffer);

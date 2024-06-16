@@ -21,6 +21,10 @@ export class Ship {
     });
   }
 
+  getPosition() {
+    return this.ship ? this.ship.position : null;
+  }
+
   stop() {
     this.speed.vel = 0;
     this.speed.rot = 0;

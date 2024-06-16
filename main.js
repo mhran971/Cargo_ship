@@ -8,8 +8,7 @@ import { setupControls, setupKeyEvents } from './eventListeners';
 import SoundPlayer from './sound';
 import { Floating } from './floating';
 import { ThrustForce } from './thrustForce';
-import { setupGUI as setupinputGUI  } from './inputs';
-
+import { setupGUI as setupinputGUI } from './inputs';
 
 const audioFilePath = 'sound/turning_on.mp3';
 const secondAudioFilePath = 'sound/rest.mp3';
@@ -36,7 +35,7 @@ function init() {
 
   // Camera setup
   camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-  camera.position.set(30, 30, 100);
+  camera.position.set(30, 30, 100); // Temporary initial position
 
   // Initialize water and sky
   const { water: waterObj, sky } = initWaterAndSky(scene, renderer);
@@ -46,7 +45,7 @@ function init() {
   ship = new Ship(scene);
 
   // Setup Time GUI
-  setupinputGUI(water,ship);
+  setupinputGUI(water, ship);
   const gui = setupTimeGUI(water, ship);
   gui.open();
 
@@ -67,6 +66,9 @@ function init() {
   // ThrustForce instance setup
   const thrustforceInstance = new ThrustForce();
   thrustforceInstance.calculateThrustForce(ship);
+
+  // Start the animation loop
+ animate();
 }
 
 function onWindowResize() {
@@ -77,14 +79,29 @@ function onWindowResize() {
 
 function animate() {
   requestAnimationFrame(animate);
-  ship.update();
-  water.material.uniforms['time'].value += timeParams.speed / 60.0;
+
+  // Ensure the ship's update method is called
+  if (ship && typeof ship.update === 'function') {
+    ship.update();
+  }
+
+  // Update the camera position to follow the ship
+  const shipPosition = ship.getPosition();
+  if (shipPosition) {
+    camera.position.set(shipPosition.x +90 , shipPosition.y +30, shipPosition.z + 1);
+    camera.lookAt(shipPosition);
+  }
+
+  // Update water material uniforms
+  if (water) {
+    water.material.uniforms['time'].value += timeParams.speed / 60.0;
+  }
+
   render();
 }
 
 function render() {
   renderer.render(scene, camera);
 }
-
+// Animate();
 init();
-animate();
