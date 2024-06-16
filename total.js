@@ -1,3 +1,5 @@
+import { ThrustForce } from "./thrustForce";
+
 export class Total {
     constructor() {
       if (!window.totalforce) {
@@ -6,6 +8,7 @@ export class Total {
     }
   
     calculatetotal(force) {
+      
       window.totalforce += force;
     }
   
