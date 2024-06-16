@@ -12,11 +12,11 @@ export class AirFriction {
   }
 
   calculateFrictionofair() {
-    if (this.variables.A2 && this.variables.R2 && this.variables.v2) {
+    // if (this.variables.A2 && this.variables.R2 && this.variables.v2) {
       const F2 = 0.5 * 0.04 * this.variables.A2 * this.variables.R2 * (this.variables.v2 ** 2);
       window.totalforce += F2;
       confirm(`\nForce of air: ${F2}`);
-    }
+    // }
   }
 
   

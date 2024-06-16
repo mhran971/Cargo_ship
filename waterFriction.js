@@ -12,12 +12,12 @@ export class WaterFriction {
   }
 
   calculateFrictionofwater() {
-    if (this.variables.A1 && this.variables.R1 && this.variables.v1) {
+    // if (this.variables.A1 && this.variables.R1 && this.variables.v1) {
       const F1 = 0.5 * 0.04 * this.variables.A1 * this.variables.R1 * (this.variables.v1 ** 2);
       window.totalforce += F1;
 
       confirm(`\nForce of water: ${F1}`);
-    }
+    // }
   }
 
   }

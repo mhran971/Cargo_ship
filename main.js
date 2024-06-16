@@ -17,28 +17,42 @@ const firstAudioFilePath = 'sound/beganing.mp3';
 const soundPlayer = new SoundPlayer();
 soundPlayer.loadSound(audioFilePath);
 
-let camera, scene, renderer;
+let mainCamera, smallCamera, scene, mainRenderer, smallRenderer;
 let ship;
 let water; // Declare the 'water' variable outside the init() function
 
 function init() {
-  // Renderer setup
-  renderer = new THREE.WebGLRenderer();
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.5;
-  document.body.appendChild(renderer.domElement);
+  // Main renderer setup
+  mainRenderer = new THREE.WebGLRenderer();
+  mainRenderer.setPixelRatio(window.devicePixelRatio);
+  mainRenderer.setSize(window.innerWidth, window.innerHeight);
+  mainRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+  mainRenderer.toneMappingExposure = 0.5;
+  document.body.appendChild(mainRenderer.domElement);
+
+  // Small renderer setup
+  smallRenderer = new THREE.WebGLRenderer();
+  smallRenderer.setPixelRatio(window.devicePixelRatio);
+  smallRenderer.setSize(window.innerWidth / 4, window.innerHeight / 4);
+  smallRenderer.domElement.style.position = 'absolute';
+  smallRenderer.domElement.style.bottom = '0';
+  smallRenderer.domElement.style.left = '0';
+  smallRenderer.domElement.style.borderRadius ='10%';
+  document.body.appendChild(smallRenderer.domElement);
 
   // Scene setup
   scene = new THREE.Scene();
 
-  // Camera setup
-  camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-  camera.position.set(30, 30, 100); // Temporary initial position
+  // Main camera setup
+  mainCamera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+  mainCamera.position.set(30, 30, 100);
+
+  // Small camera setup
+  smallCamera = new THREE.PerspectiveCamera(55, (window.innerWidth / 4) / (window.innerHeight / 4), 1, 20000);
+  smallCamera.position.set(0, 10, 30); // Initial position relative to the ship
 
   // Initialize water and sky
-  const { water: waterObj, sky } = initWaterAndSky(scene, renderer);
+  const { water: waterObj, sky } = initWaterAndSky(scene, mainRenderer);
   water = waterObj;
 
   // Ship setup
@@ -50,7 +64,7 @@ function init() {
   gui.open();
 
   // Controls setup
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new OrbitControls(mainCamera, mainRenderer.domElement);
   setupControls(controls);
 
   // Event listeners setup
@@ -68,13 +82,17 @@ function init() {
   thrustforceInstance.calculateThrustForce(ship);
 
   // Start the animation loop
- animate();
+  animate();
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  mainRenderer.setSize(window.innerWidth, window.innerHeight);
+  mainCamera.aspect = window.innerWidth / window.innerHeight;
+  mainCamera.updateProjectionMatrix();
+
+  smallRenderer.setSize(window.innerWidth / 4, window.innerHeight / 4);
+  smallCamera.aspect = (window.innerWidth / 4) / (window.innerHeight / 4);
+  smallCamera.updateProjectionMatrix();
 }
 
 function animate() {
@@ -85,11 +103,11 @@ function animate() {
     ship.update();
   }
 
-  // Update the camera position to follow the ship
+  // Update the small camera position to follow the ship
   const shipPosition = ship.getPosition();
   if (shipPosition) {
-    camera.position.set(shipPosition.x +90 , shipPosition.y +30, shipPosition.z + 1);
-    camera.lookAt(shipPosition);
+    smallCamera.position.set(shipPosition.x + 90, shipPosition.y + 10, shipPosition.z + 1);
+    smallCamera.lookAt(shipPosition);
   }
 
   // Update water material uniforms
@@ -101,7 +119,11 @@ function animate() {
 }
 
 function render() {
-  renderer.render(scene, camera);
+  // Render the main scene with the main camera
+  mainRenderer.render(scene, mainCamera);
+  // Render the small scene with the small camera
+  smallRenderer.render(scene, smallCamera);
 }
-// Animate();
+
 init();
+animate();
