@@ -16,6 +16,7 @@ export function setupKeyEvents(ship) {
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp") {
+     if(ThrustForce.F3String != 0){
       ship.speed.rot = -window.firstDigit*counter;
       if (!intervalId) {
         intervalId = setInterval(() => {
@@ -32,7 +33,7 @@ export function setupKeyEvents(ship) {
       if (decrementIntervalId) {
         clearInterval(decrementIntervalId);
         decrementIntervalId = null;
-      }
+      }}
     }
     if (e.key === "ArrowDown") {
       ship.speed.rot = 1;
@@ -56,7 +57,8 @@ export function setupKeyEvents(ship) {
   window.addEventListener("keyup", (e) => {
     ship.stop();
     if (e.key === "ArrowUp") {
-      
+      if(ThrustForce.F3String != 0){
+
       ship.speed.rot = -window.firstDigit;
       if (intervalId) {
         clearInterval(intervalId);
@@ -75,5 +77,5 @@ export function setupKeyEvents(ship) {
         }, 2000);
       }
     }
-  });
+  }});
 }

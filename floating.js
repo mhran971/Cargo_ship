@@ -20,7 +20,7 @@ export class Floating {
 
             confirm('W: ' + W + '\nF: ' + F);
 
-            if (F < W &&(this.variables.g > 7)) {
+            if ((F < W &&(this.variables.g > 7)||this.variables.g > 15) ) {
                 this.floating = false;
                 confirm('The ship will sink');
 
