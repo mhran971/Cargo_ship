@@ -11,7 +11,7 @@ export class Floating {
         this.floating = false;
         this.setVariablesSetFlagofFloating();
     }
-
+    
     calculateFloating(ship) {
         
         if (this.setVariablesSetFlagofFloating()) {

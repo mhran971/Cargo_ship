@@ -30,6 +30,7 @@ class SoundPlayer {
   }
 
   loadSecondSound() {
+    //let con=window.congear;
     const secondAudioFilePath = 'sound/rest.mp3';
     this.audioLoader.load(secondAudioFilePath, (buffer) => {
       const secondAudio = new THREE.Audio(this.listener);

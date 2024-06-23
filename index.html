@@ -4,26 +4,49 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>cargo ship</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .container {
+        position: relative;
+      }
+      .radar {
+        width: 100%;
+        height: auto;
+      }
+      .line {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background: white;
+      }
+      .dot1, .dot2 {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: red;
+        border-radius: 50%;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
-    <script type="module" src="/ship.js"></script>
-    <div style="top: 17%; left: 2.5% ;font-size: 1em; position: absolute; font-family:monospace;">
-      <h1>Current Gear</h1>
-      
-    </div>
-    <div id="doubling-counter" style="position: absolute; top: 28%; left: 4%;
-           transform: translateY(-50%); font-size: 15em; color: white;
-           z-index: 1000; font-family: 'Times New Roman', Times, serif; opacity: 0.5;">
+    <div style="border-radius:10% ; opacity:80% ; position: fixed; top: 24%; left: 1%; width: 10%; height: 50% ;">
+      <h1 style="top: 12%; left: 50%; transform: translate(-50%, -50%); font-size: 2em; position: absolute; font-family: monospace; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 5px;">Current Gear</h1>
+      <div id="doubling-counter" style="position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%); font-size: 15em; color: white; z-index: 1000; font-family: 'Times New Roman', Times, serif; opacity: 0.5;">
+        <!-- Content for doubling-counter -->
       </div>
+    </div>
     <div class="container">
       <img class="radar" src="./assets/Screenshot.png" alt="Radar Image">
       <div class="line"></div>
       <div class="line"></div>
-            <div class="dot1" style="top: 30%; left: 50%;"></div>
-            <div class="dot2" style="top: 20%; left: 30%;"></div>
-  </div>
+      <div class="dot1" style="top: 30%; left: 50%;"></div>
+      <div class="dot2" style="top: 20%; left: 30%;"></div>
+    </div>
   </body>
 </html>

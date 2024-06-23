@@ -9,6 +9,7 @@ import SoundPlayer from './sound';
 import { Floating } from './floating';
 import { ThrustForce } from './thrustForce';
 import { setupGUI as setupinputGUI } from './inputs';
+import { Physics } from './physics.js';
 
 const audioFilePath = 'sound/turning_on.mp3';
 const secondAudioFilePath = 'sound/rest.mp3';
@@ -20,6 +21,7 @@ soundPlayer.loadSound(audioFilePath);
 let mainCamera, smallCamera, scene, mainRenderer, smallRenderer;
 let ship;
 let water; // Declare the 'water' variable outside the init() function
+let physics; // Declare the physics variable outside the init() function
 
 function init() {
   // Main renderer setup
@@ -37,7 +39,7 @@ function init() {
   smallRenderer.domElement.style.position = 'absolute';
   smallRenderer.domElement.style.bottom = '0';
   smallRenderer.domElement.style.left = '0';
-  smallRenderer.domElement.style.borderRadius ='10%';
+  smallRenderer.domElement.style.borderRadius = '10%';
   document.body.appendChild(smallRenderer.domElement);
 
   // Scene setup
@@ -57,6 +59,11 @@ function init() {
 
   // Ship setup
   ship = new Ship(scene);
+
+  // Initialize the physics after ship is created
+  setTimeout(() => {
+    physics = new Physics(ship);
+  }, 1000);
 
   // Setup Time GUI
   setupinputGUI(water, ship);
@@ -81,6 +88,9 @@ function init() {
   const thrustforceInstance = new ThrustForce();
   thrustforceInstance.calculateThrustForce(ship);
 
+  // Add speed and acceleration display elements
+  addMetricsDisplay();
+
   // Start the animation loop
   animate();
 }
@@ -101,6 +111,9 @@ function animate() {
   // Ensure the ship's update method is called
   if (ship && typeof ship.update === 'function') {
     ship.update();
+    if (physics) {
+      physics.update();
+    }
   }
 
   // Update the small camera position to follow the ship
@@ -114,7 +127,6 @@ function animate() {
   if (water) {
     water.material.uniforms['time'].value += timeParams.speed / 60.0;
   }
-
   render();
 }
 
@@ -125,5 +137,31 @@ function render() {
   smallRenderer.render(scene, smallCamera);
 }
 
+function addMetricsDisplay() {
+  const avgSpeedDisplay = document.createElement('div');
+  avgSpeedDisplay.id = 'avg-speed-display';
+  avgSpeedDisplay.style.position = 'fixed';
+  avgSpeedDisplay.style.bottom = '10px';
+  avgSpeedDisplay.style.left = '10px';
+  avgSpeedDisplay.style.color = 'white';
+  avgSpeedDisplay.style.fontSize = '20px';
+  avgSpeedDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  avgSpeedDisplay.style.padding = '10px';
+  avgSpeedDisplay.style.borderRadius = '5px';
+  document.body.appendChild(avgSpeedDisplay);
+
+  const avgAccelerationDisplay = document.createElement('div');
+  avgAccelerationDisplay.id = 'avg-acceleration-display';
+  avgAccelerationDisplay.style.position = 'fixed';
+  avgAccelerationDisplay.style.bottom = '40px';
+  avgAccelerationDisplay.style.left = '10px';
+  avgAccelerationDisplay.style.color = 'white';
+  avgAccelerationDisplay.style.fontSize = '20px';
+  avgAccelerationDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  avgAccelerationDisplay.style.padding = '10px';
+  avgAccelerationDisplay.style.borderRadius = '5px';
+  document.body.appendChild(avgAccelerationDisplay);
+}
+
+
 init();
-animate();
