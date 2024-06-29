@@ -51,7 +51,7 @@ export class Floating {
                     const deltaPos = (10 - this.variables.g ) * progress;
                    ship.speed.pos += 1.5*deltaPos;
                   //  ship.speed.vel += 0.006*deltaPos;
-                    ship.speed.z += 0.04*deltaPos;
+                   // ship.speed.z += 0.04*deltaPos;
                     if (elapsed < duration) {
                         setTimeout(flyShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
                     }

@@ -1,4 +1,4 @@
-import * as dat from 'dat.gui';
+// airFriction.js
 
 export class AirFriction {
   constructor() {
@@ -11,13 +11,19 @@ export class AirFriction {
     };
   }
 
-  calculateFrictionofair() {
-    // if (this.variables.A2 && this.variables.R2 && this.variables.v2) {
-      const F2 = 0.5 * 0.04 * this.variables.A2 * this.variables.R2 * (this.variables.v2 ** 2);
-      window.totalforce += F2;
-      confirm(`\nForce of air: ${F2}`);
-    // }
+  setVariable(name, value) {
+    if (this.variables.hasOwnProperty(name)) {
+      this.variables[name] = value;
+    } else {
+      console.error(`Variable ${name} does not exist in AirFriction variables.`);
+    }
   }
 
-  
+  calculateFrictionofair() {
+    // if (this.variables.A2 && this.variables.R2 && this.variables.v2) {
+    const F2 = 0.5 * 0.04 * this.variables.A2 * this.variables.R2 * (this.variables.v2 ** 2);
+    window.totalforce += F2;
+    confirm(`\nForce of air: ${F2}`);
+    // }
+  }
 }

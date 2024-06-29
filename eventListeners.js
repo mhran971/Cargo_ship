@@ -10,52 +10,35 @@ export function setupKeyEvents(ship) {
   let counter = 0;
   let intervalId;
   let decrementIntervalId;
+  let speedDecrementIntervalId;
   const maxCounter = 6;
   const incrementTime = 3000; // 3 seconds
-  const stopDuration = 7000; // 7 seconds
   const counterElement = document.getElementById("doubling-counter");
-  const keysPressed = new Set();
+
+  const speedDecrementStep = 0.1; // Define how much the speed decreases each step
+  const speedDecrementTime = 200; // Define the time interval for speed decrement
 
   window.addEventListener("keydown", (e) => {
-    keysPressed.add(e.key);
-
-    if (e.key === "ArrowUp") {
-      if (window.thr === 0) {
-        counter = 0;
-        counterElement.innerText = counter;
-        counterElement.style.display = 'none'; // Hide the counter element when thr is 0
-        return; // If the thrust force is 0, do nothing
-      } else {
-        ship.speed.rot = -window.firstDigit * counter;
-        counterElement.style.display = 'block'; // Show the counter element when thr is not 0
-        if (!intervalId && window.thr !== 0) {
-          intervalId = setInterval(() => {
-            if (counter < maxCounter) {
-              counter++;
-              window.congear = counter;
-              counterElement.innerText = counter;
-            } else {
-              clearInterval(intervalId);
-              intervalId = null;
-            }
-          }, incrementTime);
-        }
-        if (decrementIntervalId) {
-          clearInterval(decrementIntervalId);
-          decrementIntervalId = null;
-        }
+    if (e.key === "ArrowUp" && window.thr !== 0) {
+      ship.speed.rot = -window.firstDigit * counter;
+      if (!intervalId) {
+        intervalId = setInterval(() => {
+          if (counter < maxCounter) {
+            counter++;
+            counterElement.innerText = counter;
+            counterElement.style.display = 'block';
+          } else {
+            clearInterval(intervalId);
+            intervalId = null;
+          }
+        }, incrementTime);
+      }
+      if (decrementIntervalId) {
+        clearInterval(decrementIntervalId);
+        decrementIntervalId = null;
       }
     }
-
-    if (keysPressed.has("ArrowLeft")) {
-      ship.speed.vel = 0.01;
-    }
-
-    if (keysPressed.has("ArrowRight")) {
-      ship.speed.vel = -0.01;
-    }
-
-    if (keysPressed.has("ArrowDown")) {
+    if (e.key === "ArrowDown") {
       ship.speed.rot = 1;
       if (intervalId) {
         clearInterval(intervalId);
@@ -66,69 +49,64 @@ export function setupKeyEvents(ship) {
         decrementIntervalId = null;
       }
     }
+    if (e.key === "ArrowLeft") {
+      ship.speed.vel = 0.01;
+    }
+    if (e.key === "ArrowRight") {
+      ship.speed.vel = -0.01;
+    }
   });
 
   window.addEventListener("keyup", (e) => {
-    keysPressed.delete(e.key);
-
-    if (e.key === "ArrowUp") {
-      if (window.thr === 0) {
-        return; // If the thrust force is 0, do nothing
-      } else {
-        ship.speed.rot = -window.firstDigit;
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
-        if (!decrementIntervalId) {
-          let startTime = performance.now();
-          const initialSpeed = ship.speed.rot;
-
-          decrementIntervalId = setInterval(() => {
-            const elapsed = performance.now() - startTime;
-            const progress = elapsed / stopDuration;
-
-            if (progress >= 1) {
-              clearInterval(decrementIntervalId);
-              decrementIntervalId = null;
-              ship.stop(); // Stop the ship after 7 seconds
-              counter = 0;
-              counterElement.innerText = counter;
-              counterElement.style.display = 'none'; // Hide the counter element when the ship stops
-            } else {
-              ship.speed.rot = initialSpeed * (1 - progress);
-            }
-          }, 16); // Update every 16 ms (~60 FPS)
-
-          // Decrement the counter
-          decrementIntervalId = setInterval(() => {
-            if (counter > 0) {
-              counter--;
-              counterElement.innerText = counter;
-              counterElement.style.display = 'block';
-            } else {
-              clearInterval(decrementIntervalId);
-              decrementIntervalId = null;
-            }
-          }, 2000); // Decrement counter every 2 seconds
-        }
-      }
-    }
-
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      ship.speed.vel = 0;
-    }
-
-    if (e.key === "ArrowDown") {
-      ship.stop();
+    
+    if (e.key === "ArrowUp" && window.thr !== 0) {
+      // Clear any existing interval for decrementing counter
       if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
       }
-      if (decrementIntervalId) {
-        clearInterval(decrementIntervalId);
-        decrementIntervalId = null;
+
+      // Gradually decrease speed
+      if (speedDecrementIntervalId) {
+        clearInterval(speedDecrementIntervalId);
+        speedDecrementIntervalId = null;
       }
+      
+      speedDecrementIntervalId = setInterval(() => {
+        if (ship.speed.rot < 0) {
+          ship.speed.rot += speedDecrementStep;
+          if (ship.speed.rot > 0) {
+            ship.speed.rot = 0; // Ensure the speed doesn't go positive
+          }
+        } else {
+          clearInterval(speedDecrementIntervalId);
+          speedDecrementIntervalId = null;
+          ship.stop(); // Stop ship movement after speed is 0
+        }
+      }, speedDecrementTime);
+
+      // Start decrementing counter every 2 seconds if not already started
+      if (!decrementIntervalId) {
+        decrementIntervalId = setInterval(() => {
+          if (counter > 0) {
+            counter--;
+            counterElement.innerText = counter;
+            counterElement.style.display = 'block';
+          } else {
+            clearInterval(decrementIntervalId);
+            decrementIntervalId = null;
+          }
+        }, 2000);
+      }
+    }if (e.key === "ArrowDown") {
+       
+      ship.stop();
+    }
+    if (e.key === "ArrowLeft") {
+      ship.stop();
+    }
+    if (e.key === "ArrowRight") {
+      ship.stop();
     }
   });
 }

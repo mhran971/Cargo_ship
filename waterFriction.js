@@ -1,4 +1,4 @@
-import * as dat from 'dat.gui';
+// waterFriction.js
 
 export class WaterFriction {
   constructor() {
@@ -11,13 +11,19 @@ export class WaterFriction {
     };
   }
 
+  setVariable(name, value) {
+    if (this.variables.hasOwnProperty(name)) {
+      this.variables[name] = value;
+    } else {
+      console.error(`Variable ${name} does not exist in WaterFriction variables.`);
+    }
+  }
+
   calculateFrictionofwater() {
     // if (this.variables.A1 && this.variables.R1 && this.variables.v1) {
-      const F1 = 0.5 * 0.04 * this.variables.A1 * this.variables.R1 * (this.variables.v1 ** 2);
-      window.totalforce += F1;
-
-      confirm(`\nForce of water: ${F1}`);
+    const F1 = 0.5 * 0.04 * this.variables.A1 * this.variables.R1 * (this.variables.v1 ** 2);
+    window.totalforce += F1;
+    confirm(`\nForce of water: ${F1}`);
     // }
   }
-
-  }
+}
