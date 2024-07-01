@@ -60,7 +60,7 @@ export function setupGUI(water, ship) {
      
   
 
-   gui.add(timeParams, 'speed', -20.0, 20.0)
+   gui.add(timeParams, 'speed', -7.0, 7.0)
    .name('Water Speed (m.s-1)')
    .onChange((v2) => {
        // Update the time speed when the GUI control changes
@@ -72,10 +72,10 @@ export function setupGUI(water, ship) {
     scale: 3.7,
     };
     
-    gui.add(distortionParams, 'scale', 1.0, 1000.0) .name('Water Height (m)') .onChange((value) => {
-    // Update the water height when the GUI control changes
-    water.material.uniforms['distortionScale'].value = value; });
-    
+    gui.add(distortionParams, 'scale', 30, 1000.0) .name('Water Height (m)') .onChange((value) => {
+    water.material.uniforms['distortionScale'].value = value; 
+   
+  });
    
     
     return gui;
