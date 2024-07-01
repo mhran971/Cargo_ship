@@ -48,8 +48,8 @@ export class Wave {
         const deltaPos = waveAmplitude * Math.sin(progress * waveFrequency * Math.PI * 2) * 0.0008; // Adjust this value to control the movement speed
 
         if (elapsed < duration) {
-          this.ship.updatePositionY(deltaPos);
-          this.ship.rotateZ(-deltaPos);
+          this.ship.updatePositionY(-deltaPos);
+          this.ship.rotateZ(deltaPos);
           requestAnimationFrame(updateShipPosition);
         } else {
           this.resetShipPosition();
