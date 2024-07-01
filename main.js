@@ -10,6 +10,7 @@ import { Floating } from './floating';
 import { ThrustForce } from './thrustForce';
 import { setupGUI as setupinputGUI } from './inputs';
 import { Physics } from './physics.js';
+import { Wave } from './wave.js'; // Import the Wave class
 
 const audioFilePath = 'sound/turning_on.mp3';
 const secondAudioFilePath = 'sound/rest.mp3';
@@ -20,8 +21,9 @@ soundPlayer.loadSound(audioFilePath);
 
 let mainCamera, smallCamera, scene, mainRenderer, smallRenderer;
 let ship;
-let water; // Declare the 'water' variable outside the init() function
-let physics; // Declare the physics variable outside the init() function
+let water;
+let physics;
+let wave; // Declare the wave variable outside the init() function
 
 function init() {
   // Main renderer setup
@@ -57,18 +59,27 @@ function init() {
   const { water: waterObj, sky } = initWaterAndSky(scene, mainRenderer);
   water = waterObj;
 
-  // Ship setup
-  ship = new Ship(scene);
+  // Ship setup with a callback to create the Wave instance after loading
+  ship = new Ship(scene, (loadedShip) => {
+    wave = new Wave(loadedShip);
+    physics = new Physics(loadedShip); // Initialize physics after the ship is ready
 
-  // Initialize the physics after ship is created
-  setTimeout(() => {
-    physics = new Physics(ship);
-  }, 1000);
+    // Setup Time GUI
+    setupinputGUI(water, loadedShip);
+    const gui = setupTimeGUI(water, loadedShip);
+    gui.open();
 
-  // Setup Time GUI
-  setupinputGUI(water, ship);
-  const gui = setupTimeGUI(water, ship);
-  gui.open();
+    // Floating instance setup
+    const floatingInstance = new Floating();
+    floatingInstance.calculateFloating(loadedShip);
+
+    // ThrustForce instance setup
+    const thrustforceInstance = new ThrustForce();
+    thrustforceInstance.calculateThrustForce(loadedShip);
+
+    // Start the animation loop
+    animate();
+  });
 
   // Controls setup
   const controls = new OrbitControls(mainCamera, mainRenderer.domElement);
@@ -80,19 +91,8 @@ function init() {
   // Window resize event
   window.addEventListener('resize', onWindowResize);
 
-  // Floating instance setup
-  const floatingInstance = new Floating();
-  floatingInstance.calculateFloating(ship);
-
-  // ThrustForce instance setup
-  const thrustforceInstance = new ThrustForce();
-  thrustforceInstance.calculateThrustForce(ship);
-
   // Add speed and acceleration display elements
   addMetricsDisplay();
-
-  // Start the animation loop
-  animate();
 }
 
 function onWindowResize() {
@@ -162,6 +162,5 @@ function addMetricsDisplay() {
   avgAccelerationDisplay.style.borderRadius = '5px';
   document.body.appendChild(avgAccelerationDisplay);
 }
-
 
 init();

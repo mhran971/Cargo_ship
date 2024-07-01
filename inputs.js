@@ -51,15 +51,15 @@ export function setupGUI(water, ship) {
   const FrictionofwaterCalculateButton = { calculate: () => waterFriction.calculateFrictionofwater(ship) };
   waterFolder.add(FrictionofwaterCalculateButton, 'calculate').name('Calculate force of Friction of water');
   waterFolder.open();
+  
 
   // Setup Wave Friction GUI elements
-  const Frictionofwave = new Wave();
-const waveFolder = gui.addFolder('Wave Friction');
-waveFolder.add(Frictionofwave.variables, 'Q', 0, 100, 0.1).name('Amplitude').onChange(value => Frictionofwave.setVariable('Q', value));
-waveFolder.add(Frictionofwave.variables, 'F', 0, 100, 1).name('Frequency').onChange(value => Frictionofwave.setVariable('F', value));
-const FrictionofwaveCalculateButton = { calculate: () => Frictionofwave.calculateFrictionofwave() };
-waveFolder.add(FrictionofwaveCalculateButton, 'calculate').name('Calculate force of Friction of wave');
-waveFolder.open();
-
+  const Frictionofwave = new Wave(ship);
+  const waveFolder = gui.addFolder('Wave Friction');
+  waveFolder.add(Frictionofwave.variables, 'Q', 0, 100, 0.1).name('Amplitude (cm)').onChange(value => Frictionofwave.setVariable('Q', value));
+  waveFolder.add(Frictionofwave.variables, 'F', 0.04, 100, 1).name('Freq (HZ/100)').onChange(value => Frictionofwave.setVariable('F', value));
+  const FrictionofwaveCalculateButton = { calculate: () => Frictionofwave.calculateFrictionOfWave() };
+  waveFolder.add(FrictionofwaveCalculateButton, 'calculate').name('Calculate force of Friction of wave');
+  waveFolder.open();
 }
 
