@@ -17,15 +17,32 @@ export function setupGUI(water, ship) {
 
   window.firstDigit = 0;
 
- var calculate = function() {
-    const num = window.totalforce; // Assuming variables.total is the number (e.g., x.3133124)
-    const digitsBeforeDecimal = parseInt(num.toString().charAt(0)); // Extract the first digit before the decimal point
-    const digitsAfterDecimal = parseFloat(num.toString().slice(1, 7)); // Extract the 6 digits after the decimal point
-    
-    window.firstDigit = parseFloat(`${digitsBeforeDecimal}.${digitsAfterDecimal}`);
-    window.firstDigit =window.firstDigit*0.5;
+  var calculate = function() {
+    const num = window.totalforce;
+    if (window.totalforce > 100000000) {
+      if (window.totalforce < 200000000 && window.totalforce > 100000000) {
+        window.firstDigit = 0.1;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      } else if (window.totalforce < 300000000 && window.totalforce > 200000000) {
+        window.firstDigit = 0.2;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      } else if (window.totalforce < 400000000 && window.totalforce > 300000000) {
+        window.firstDigit = 0.3;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      } else if (window.totalforce < 500000000 && window.totalforce > 400000000) {
+        window.firstDigit = 0.4;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      } else if (window.totalforce < 600000000 && window.totalforce > 500000000) {
+        window.firstDigit = 0.5;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      } else if (window.totalforce > 600000000) {
+        window.firstDigit = 0.6;
+        confirm('\nTotal force simulation: ' + window.firstDigit);
+      }
+    } else {
+      window.firstDigit = 0;
       confirm('\nTotal force simulation: ' + window.firstDigit);
-    
+    }
   };
 
 

@@ -36,7 +36,7 @@ export class ThrustForce {
     if (window.thr !== 0) {
       return window.thr;
     } else {
-      console.log('Thrust force is not calculated yet.');
+      confirm('Thrust force is not calculated yet.');
       return 0;
     }
   }

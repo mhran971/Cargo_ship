@@ -40,16 +40,16 @@ export class Wave {
       const waveAmplitude = 1; // Adjust this value to control the amplitude of the wave
       const waveFrequency = 10; // Adjust this value to control the frequency of the wave
       const startTime = new Date().getTime();
-      const duration = 10000;
+      const duration = this.variables.Q*1000;
       
       const updateShipPosition = () => {
         const elapsed = new Date().getTime() - startTime;
-        const progress = elapsed / duration;
-        const deltaPos = waveAmplitude * Math.sin(progress * waveFrequency * Math.PI * 2) * 0.0008; // Adjust this value to control the movement speed
+        const progress = elapsed / 10000;
+        const deltaPos = waveAmplitude * Math.cos(progress * waveFrequency * Math.PI * 2) * 0.002; // Adjust this value to control the movement speed
 
         if (elapsed < duration) {
           this.ship.updatePositionY(-deltaPos);
-          this.ship.rotateZ(deltaPos);
+          this.ship.rotateZ(-deltaPos);
           requestAnimationFrame(updateShipPosition);
         } else {
           this.resetShipPosition();
