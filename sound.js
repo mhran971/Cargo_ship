@@ -8,8 +8,8 @@ class SoundPlayer {
     this.secondAudio = null; // Store the second audio instance
     this.isSoundPlaying = false;
     this.volume = 0.2;
-    this.volumeChangeRate = 0.2; // smaller increments
-    this.volumeChangeInterval = 300; // shorter interval for smoother changes
+    this.volumeChangeRate = 1.5 // smaller increments
+    this.volumeChangeInterval = 2000; // shorter interval for smoother changes
     this.increaseVolumeInterval = null;
     this.decreaseVolumeInterval = null;
   }
