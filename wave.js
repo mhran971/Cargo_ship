@@ -23,7 +23,7 @@ export class Wave {
   calculateFrictionOfWave() {
     const { Q, F } = this.variables;
     const v = Q * F;
-    confirm(`Force of wave: ${v.toFixed(5)}`);
+    console.log(`Force of wave: ${v.toFixed(5)}`);
 
     if (F > 10) {
       this.sineWaveMovement = true;

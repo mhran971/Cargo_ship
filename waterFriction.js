@@ -26,7 +26,7 @@ export class WaterFriction {
       window.totalforce -= F1;
     else
     window.totalforce += F1;
-    confirm(`\nForce of water: ${F1}`);
+    console.log(`\nForce of water: ${F1}`);
     // }
   }
 }

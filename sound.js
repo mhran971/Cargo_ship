@@ -114,6 +114,22 @@ class SoundPlayer {
       this.decreaseVolumeInterval = null;
     }
   }
+
+  cruchingsound(audioFilePath ,turnon) {
+    if(turnon){
+    this.audioLoader.load(audioFilePath, (buffer) => {
+      this.audio.setBuffer(buffer);
+      this.audio.setLoop(false);
+      this.audio.setVolume(this.volume); })
+}}
+loadSoundcrush(filePath) {
+  this.audio = new Audio(filePath);
+}
+playSoundcrush() {
+  if (this.audio) {
+      this.audio.play();
+  }
 }
 
+}
 export default SoundPlayer;

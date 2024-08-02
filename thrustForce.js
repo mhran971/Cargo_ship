@@ -26,7 +26,7 @@ export class ThrustForce {
       window.thr = F3;
       const F3String = F3.toFixed(5); // Convert F3 to a string with 5 decimal places
       window.totalforce += parseFloat(F3String); // Update window.totalforce with the corrected F3 value
-      confirm(`\nForce of thrust: ${F3String}`);
+      console.log(`\nForce of thrust: ${F3String}`);
     } else {
       console.log('Some variables are not set. Cannot calculate thrust force.');
     }
@@ -36,7 +36,7 @@ export class ThrustForce {
     if (window.thr !== 0) {
       return window.thr;
     } else {
-      confirm('Thrust force is not calculated yet.');
+      console.log('Thrust force is not calculated yet.');
       return 0;
     }
   }

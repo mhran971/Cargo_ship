@@ -13,7 +13,7 @@ export class Total {
     }
   
     exposetotal() {
-      confirm(`Total force of thrust: ${window.totalforce} N`);
+      console.log(`Total force of thrust: ${window.totalforce} N`);
     }
      
   }

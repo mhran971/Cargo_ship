@@ -27,7 +27,7 @@ export class AirFriction {
       window.totalforce -= F2;
     else
     window.totalforce += F2;
-    confirm(`\nForce of air: ${F2}`);
+    console.log(`\nForce of air: ${F2}`);
     // }
   }
 }
