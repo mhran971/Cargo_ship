@@ -37,28 +37,28 @@ export class Wave {
 
   updateWaveMovement() {
     if (this.sineWaveMovement && this.ship) {
-      const waveAmplitude = 1; // Adjust this value to control the amplitude of the wave
-      const waveFrequency = 10; // Adjust this value to control the frequency of the wave
-      const startTime = new Date().getTime();
-      const duration = this.variables.Q*1000;
-      
-      const updateShipPosition = () => {
-        const elapsed = new Date().getTime() - startTime;
-        const progress = elapsed / 10000;
-        const deltaPos = waveAmplitude * Math.cos(progress * waveFrequency * Math.PI * 2) * 0.002; // Adjust this value to control the movement speed
+        const waveAmplitude = 1; 
+        const waveFrequency = 10;
+        const startTime = new Date().getTime();
+        const duration = 10000; 
 
-        if (elapsed < duration) {
-          this.ship.updatePositionY(-deltaPos);
-          this.ship.rotateZ(-deltaPos);
-          requestAnimationFrame(updateShipPosition);
-        } else {
-          this.resetShipPosition();
-        }
-      };
+        const updateShipPosition = () => {
+            const elapsed = new Date().getTime() - startTime;
+            const progress = elapsed / duration;
+            const deltaPos = waveAmplitude * Math.cos(progress * waveFrequency * Math.PI * 2) * 0.002; // Adjust this value to control the movement speed
 
-      updateShipPosition();
+            if (elapsed < duration) {
+                this.ship.updatePositionY(-deltaPos);
+                this.ship.rotateZ(-deltaPos);
+                requestAnimationFrame(updateShipPosition);
+            } else {
+                this.resetShipPosition();
+            }
+        };
+
+        updateShipPosition();
     }
-  }
+}
 
   resetShipPosition() {
     this.ship.setPosition(this.initialShipPosition.x, this.initialShipPosition.y, this.initialShipPosition.z);
