@@ -34,7 +34,7 @@ export function setupGUI(water, ship) {
   const floatingInstance = new Floating();
   floatingInstance.variables.g = 10; 
   const floatingFolder = gui.addFolder('Floating');
-  floatingFolder.add(floatingInstance.variables, 'm', 0, 64000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
+  floatingFolder.add(floatingInstance.variables, 'm', 0, 64000000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'g', -20, 20, 0.1).name('Gravity (m.s-2)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'R', 0, 1000, 0.1).name('Radius (Kg.m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'V', 0, 64000, 0.1).name('Velocity (m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));

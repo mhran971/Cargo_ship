@@ -12,7 +12,7 @@ export class Ice {
             "assets/Ice/scene.gltf",
             (gltf) => {
                 scene.add(gltf.scene);
-                gltf.scene.scale.set(50, 50, 50);
+                gltf.scene.scale.set(25, 25, 25);
                 gltf.scene.position.set(0, y, 0);
                 this.iceModel = gltf.scene;
                 this.iceModel.boundingBox = new THREE.Box3().setFromObject(gltf.scene);

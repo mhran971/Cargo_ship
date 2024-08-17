@@ -34,7 +34,7 @@ export class Floating {
                     ship.speed.pos -= deltaPos;
 
                     if (elapsed < duration) {
-                        setTimeout(updateShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
+                        setTimeout(updateShipPosition, 16); 
                     }
                 };
 
@@ -53,7 +53,7 @@ export class Floating {
                   //  ship.speed.vel += 0.006*deltaPos;
                    // ship.speed.z += 0.04*deltaPos;
                     if (elapsed < duration) {
-                        setTimeout(flyShipPosition, 16); // Run the update function approximately every 16 milliseconds for smooth animation
+                        setTimeout(flyShipPosition, 16); 
                     }
                 };
 
