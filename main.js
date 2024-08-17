@@ -66,13 +66,18 @@ function init() {
         setupinputGUI(water, loadedShip);
         const gui = setupTimeGUI(water, loadedShip);
         gui.open();
-
+        
         const floatingInstance = new Floating();
         floatingInstance.calculateFloating(loadedShip);
 
         const thrustforceInstance = new ThrustForce();
         thrustforceInstance.calculateThrustForce(loadedShip);
-
+        setInterval(() => {
+            const position = ship.getPosition();
+            if (position) {
+                console.log(`Ship position: x=${position.x.toFixed(2)}, y=${position.y.toFixed(2)}, z=${position.z.toFixed(2)}`);
+            }
+        }, 2000);
         animate();
     });
 
@@ -104,41 +109,37 @@ function onWindowResize() {
 
 
 function detectIceCollision() {
-    // Implement your collision detection logic here
-    // Return true if the ship collides with ice, otherwise false
-    // For now, we assume a collision for testing
-    return false; // Placeholder
+    return false;
 }
 
 function updateShipPosition() {
     const startTime = Date.now();
-    const duration = 10000; // Total duration for the animation (10 seconds)
+    const duration = 10000; 
     let angle = 0;
-    const targetAngle = 80 * Math.PI / 180; // Target angle in radians (80 degrees)
+    const targetAngle = 80 * Math.PI / 180; 
 
     const update = () => {
         const elapsed = Date.now() - startTime;
         const progress = elapsed / duration;
 
-        // Detect collision with ice
+      
         if (detectIceCollision()) {
             ship.speed.pos = 0;
             ship.speed.rot = 0;
-            disableArrowControls(); // Disable arrow controls
-            console.log('Collision detected, playing sound...');
+            disableArrowControls(); 
+            console.log('Collision detected ');
             
-            return; // Exit the update function
+            return; 
         }
 
-        // Rotate the ship
+    
         if (angle <targetAngle) { 
             angle = 0.0009 * progress * Math.PI / 50;
             ship.rotateZ(-angle);
         }
 
-        // Update the position over time
-        if (elapsed >= 2000) { // Start slowing down after 2 seconds
-            const deltaPos = 0.000009 * (elapsed - 2000) / duration; // Progress after the initial delay
+        if (elapsed >= 2000) { 
+            const deltaPos = 0.000009 * (elapsed - 2000) / duration; 
             ship.speed.pos -= deltaPos * 100;
             ship.speed.rot += deltaPos;
         }
@@ -159,16 +160,12 @@ function disableArrowControls() {
 function handleArrowKeys(event) {
     switch (event.key) {
         case 'ArrowUp':
-            // Move ship up
             break;
         case 'ArrowDown':
-            // Move ship down
             break;
         case 'ArrowLeft':
-            // Rotate ship left
             break;
         case 'ArrowRight':
-            // Rotate ship right
             break;
         default:
             break;
@@ -185,7 +182,7 @@ function checkCollision() {
         ice.updateBoundingBox();
         if (ship.ship.boundingBox.intersectsBox(ice.iceModel.boundingBox)) {
             console.log("warning !!!  Collision detected ");
-            crushing.playSoundcrush(); // Play crashing sound
+            crushing.playSoundcrush();
             updateShipPosition();
         }
     }

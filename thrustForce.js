@@ -1,5 +1,3 @@
-// thrustForce.js
-
 export class ThrustForce {
   constructor() {
     this.variables = {

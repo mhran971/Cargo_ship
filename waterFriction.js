@@ -1,11 +1,9 @@
-// waterFriction.js
-
 export class WaterFriction {
   constructor() {
     this.variables = {
       A1: 0, // space
-      R1: 0, // radius
-      v1: 0, // speed
+      R1: 0,  
+      v1: 0,    
       F1: 0,
       total: 0,
     };
@@ -20,8 +18,7 @@ export class WaterFriction {
   }
 
   calculateFrictionofwater() {
-    // if (this.variables.A1 && this.variables.R1 && this.variables.v1) {
-    const F1 = 0.5 * 0.04 * this.variables.A1 * this.variables.R1 * (this.variables.v1 ** 2);
+     const F1 = 0.5 * 0.04 * this.variables.A1 * this.variables.R1 * (this.variables.v1 ** 2);
     if(this.variables.v1 < 0)
       window.totalforce -= F1;
     else

@@ -6,16 +6,13 @@ import { WaterFriction } from './waterFriction';
 import { Wave } from './wave.js';
 
 export function setupGUI(water, ship) {
-  // Initialize the GUI
-  const gui = new dat.GUI();
+   const gui = new dat.GUI();
 
-  // Track updates
-  let airFrictionUpdated = false;
+   let airFrictionUpdated = false;
   let waterFrictionUpdated = false;
   let thrustForceUpdated = false;
 
-  // Helper function to debounce calculations
-  function debounce(func, wait) {
+   function debounce(func, wait) {
     let timeout;
     return function(...args) {
       clearTimeout(timeout);
@@ -23,25 +20,22 @@ export function setupGUI(water, ship) {
     };
   }
 
-  // Helper function to check if all calculations are done
-  function checkAndRunFinalFunction() {
+   function checkAndRunFinalFunction() {
     if ((airFrictionUpdated && waterFrictionUpdated && thrustForceUpdated)!=0) {
       runFinalFunction();
     }
   }
 
-  // Setup Floating GUI elements
-  const floatingInstance = new Floating();
+   const floatingInstance = new Floating();
   floatingInstance.variables.g = 10; 
   const floatingFolder = gui.addFolder('Floating');
-  floatingFolder.add(floatingInstance.variables, 'm', 0, 64000000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
+  floatingFolder.add(floatingInstance.variables, 'm', 0, 6400000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'g', -20, 20, 0.1).name('Gravity (m.s-2)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'R', 0, 1000, 0.1).name('Radius (Kg.m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'V', 0, 64000, 0.1).name('Velocity (m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.open();
 
-  // Setup Thrust Force GUI elements
-  const thrustForceInstance = new ThrustForce();
+   const thrustForceInstance = new ThrustForce();
   const thrustFolder = gui.addFolder('Thrust Force');
   thrustFolder.add(thrustForceInstance.variables, 'R3', 0, 1000, 0.1).name('Radius (Kg.m-3)').onChange(debounce(() => {
     thrustForceInstance.calculateThrustForce(ship);
@@ -65,8 +59,7 @@ export function setupGUI(water, ship) {
   }, 500));
   thrustFolder.open();
 
-  // Setup Air Friction GUI elements
-  const airFriction = new AirFriction();
+   const airFriction = new AirFriction();
   const airFolder = gui.addFolder('Air Friction');
   airFolder.add(airFriction.variables, 'A2', 0, 440, 0.1).name('Space (m-2)').onChange(debounce(() => {
     airFriction.calculateFrictionofair(ship);
@@ -85,8 +78,7 @@ export function setupGUI(water, ship) {
   }, 500));
   airFolder.open();
 
-  // Setup Water Friction GUI elements
-  const waterFriction = new WaterFriction();
+   const waterFriction = new WaterFriction();
   const waterFolder = gui.addFolder('Water Friction');
   waterFolder.add(waterFriction.variables, 'A1', 0, 160, 0.1).name('Space (m-2)').onChange(debounce(() => {
     waterFriction.calculateFrictionofwater(ship);
@@ -108,8 +100,7 @@ export function setupGUI(water, ship) {
   const waveInstance = new Wave(ship);
   const waveFolder = gui.addFolder('Wave Friction');
   
-  // Debounced function for calculating wave friction
-  const debouncedCalculateWaveFriction = debounce(() => {
+   const debouncedCalculateWaveFriction = debounce(() => {
     waveInstance.calculateFrictionOfWave();
   }, 500);
   
@@ -124,8 +115,7 @@ export function setupGUI(water, ship) {
   
   waveFolder.open();
 
-  // Final function to run after all updates
-  function runFinalFunction() {
+   function runFinalFunction() {
     console.log(`\nTotal force of thrust: ${window.totalforce} N`);
     calculate();
   }

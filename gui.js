@@ -8,7 +8,7 @@ export const timeParams = {
   speed: 1.0,
 };
 
-new ThrustForce(); // Initialize ThrustForce
+new ThrustForce();  
 
 export function setupGUI(water, ship) {
   const gui = new dat.GUI();
@@ -55,7 +55,7 @@ export function setupGUI(water, ship) {
   gui.add({ put_initial_total: put_initial_total }, 'put_initial_total').name('Reset Total Force');
 
   gui.add(timeParams, 'speed', -7.0, 7.0).name('Water Speed (m.s-1)').onChange(v2 => {
-    water.material.uniforms['time'].value = v2 / 60.0; // Assuming 'time' is the correct uniform
+    water.material.uniforms['time'].value = v2 / 60.0;  
     variables.v1 = v2;
   });
 

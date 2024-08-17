@@ -14,11 +14,12 @@ export class Ship {
         };
         const y = 7.5;
         loader.load("assets/Ship/scene.gltf", (gltf) => {
-            scene.add(gltf.scene);
-            gltf.scene.scale.set(5, 5, 5);
-            gltf.scene.position.set(0, y, 0);
             this.ship = gltf.scene;
+            this.ship.scale.set(5, 5, 5);
+            this.ship.position.set(0, y, 0);
             this.ship.boundingBox = new THREE.Box3().setFromObject(gltf.scene);
+            this.scene.add(this.ship);
+
             if (onLoadCallback) {
                 onLoadCallback(this);
             }
@@ -32,7 +33,12 @@ export class Ship {
     }
 
     getPosition() {
-        return this.ship ? this.ship.position : null;
+        if (this.ship) {
+            return this.ship.position;
+        } else {
+            console.warn("Ship not loaded yet.");
+            return null;
+        }
     }
 
     rotateX(angleInRadians) {
@@ -54,6 +60,7 @@ export class Ship {
     setPosition(x, y, z) {
         if (this.ship) {
             this.ship.position.set(x, y, z);
+            this.speed.pos = y; 
         }
     }
 
@@ -65,10 +72,15 @@ export class Ship {
 
     updatePositionY(y) {
         if (this.ship) {
-            this.ship.position.y += y;
+            console.log(`Updating ship Y position from ${this.ship.position.y} to ${y}`);
+            this.ship.position.y = y;
+            this.speed.pos = y; 
+            console.log(`Ship Y position is now ${this.ship.position.y}`);
+        } else {
+            console.warn("Ship not loaded, cannot update Y position.");
         }
     }
-
+    
     stop() {
         this.speed.vel = 0;
         this.speed.rot = 0;
@@ -80,7 +92,7 @@ export class Ship {
         if (this.ship) {
             this.ship.rotateY(this.speed.vel);
             this.ship.translateX(this.speed.rot);
-            this.ship.position.y = this.speed.pos;
+            this.ship.position.y = this.speed.pos; 
             this.ship.rotateX(this.speed.z);
         }
     }

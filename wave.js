@@ -45,7 +45,7 @@ export class Wave {
         const updateShipPosition = () => {
             const elapsed = new Date().getTime() - startTime;
             const progress = elapsed / duration;
-            const deltaPos = waveAmplitude * Math.cos(progress * waveFrequency * Math.PI * 2) * 0.002; // Adjust this value to control the movement speed
+            const deltaPos = waveAmplitude * Math.cos(progress * waveFrequency * Math.PI * 2) * 0.002; 
 
             if (elapsed < duration) {
                 this.ship.updatePositionY(-deltaPos);
