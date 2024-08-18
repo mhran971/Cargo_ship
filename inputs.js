@@ -4,6 +4,7 @@ import { ThrustForce } from './thrustForce';
 import { AirFriction } from './airFriction';
 import { WaterFriction } from './waterFriction';
 import { Wave } from './wave.js';
+import { Rotational } from './rotational.js';
 
 export function setupGUI(water, ship) {
    const gui = new dat.GUI();
@@ -29,7 +30,7 @@ export function setupGUI(water, ship) {
    const floatingInstance = new Floating();
   floatingInstance.variables.g = 10; 
   const floatingFolder = gui.addFolder('Floating');
-  floatingFolder.add(floatingInstance.variables, 'm', 0, 6400000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
+  floatingFolder.add(floatingInstance.variables, 'm', 0, 64000000, 0.1).name('Mass (Kg)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'g', -20, 20, 0.1).name('Gravity (m.s-2)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'R', 0, 1000, 0.1).name('Radius (Kg.m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
   floatingFolder.add(floatingInstance.variables, 'V', 0, 64000, 0.1).name('Velocity (m-3)').onChange(debounce(() => floatingInstance.calculateFloating(ship), 500));
@@ -58,6 +59,28 @@ export function setupGUI(water, ship) {
     checkAndRunFinalFunction();
   }, 500));
   thrustFolder.open();
+
+
+  const rotationalInstance = new Rotational();
+const rotationalFolder = gui.addFolder('Rotation movement');
+
+rotationalFolder.add(rotationalInstance.variables, 'V', 16, 25 , 1).name('Speed ').onChange(debounce(() => {
+  rotationalInstance.calculaterotational(ship);
+}, 500));
+
+rotationalFolder.add(rotationalInstance.variables, 'deg', 10, 30, 1).name('Rotational degree').onChange(debounce(() => {
+  rotationalInstance.calculaterotational(ship);
+}, 500));
+
+rotationalFolder.add(rotationalInstance.variables, 's', 30, 100, 0.1).name('Propeller square').onChange(debounce(() => {
+  rotationalInstance.calculaterotational(ship);
+}, 500));
+
+// rotationalFolder.add(rotationalInstance.variables, 'Sxz', , 7, 0.1).name('Side ship space').onChange(debounce(() => {
+//   rotationalInstance.calculaterotational(ship);
+// }, 500));
+
+rotationalFolder.open();
 
    const airFriction = new AirFriction();
   const airFolder = gui.addFolder('Air Friction');

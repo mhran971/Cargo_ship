@@ -15,16 +15,16 @@ export function setupKeyEvents(ship) {
   const incrementTime = 3000; // 3 seconds
   const counterElement = document.getElementById("doubling-counter");
 
-  const speedDecrementStep = 0.1; // Define how much the speed decreases each step
-  const speedDecrementTime = 200; // Define the time interval for speed decrement
+  const speedDecrementStep = 0.1; 
+  const speedDecrementTime = 200; 
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp" && window.thr !== 0) {
-      ship.speed.rot = -window.firstDigit * counter;
+      ship.speed.rot = -window.firstDigit * counter*0.2;
       if (!intervalId) {
         intervalId = setInterval(() => {
           if (counter < maxCounter) {
-            counter++;
+            counter ++ ;
             counterElement.innerText = counter;
             counterElement.style.display = 'block';
           } else {
@@ -60,13 +60,12 @@ export function setupKeyEvents(ship) {
   window.addEventListener("keyup", (e) => {
     
     if (e.key === "ArrowUp" && window.thr !== 0) {
-      // Clear any existing interval for decrementing counter
+ 
       if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
       }
 
-      // Gradually decrease speed
       if (speedDecrementIntervalId) {
         clearInterval(speedDecrementIntervalId);
         speedDecrementIntervalId = null;
@@ -76,16 +75,15 @@ export function setupKeyEvents(ship) {
         if (ship.speed.rot < 0) {
           ship.speed.rot += speedDecrementStep;
           if (ship.speed.rot > 0) {
-            ship.speed.rot = 0; // Ensure the speed doesn't go positive
+            ship.speed.rot = 0;  
           }
         } else {
           clearInterval(speedDecrementIntervalId);
           speedDecrementIntervalId = null;
-          ship.stop(); // Stop ship movement after speed is 0
+          ship.stop(); 
         }
       }, speedDecrementTime);
 
-      // Start decrementing counter every 2 seconds if not already started
       if (!decrementIntervalId) {
         decrementIntervalId = setInterval(() => {
           if (counter > 0) {

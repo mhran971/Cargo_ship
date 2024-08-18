@@ -9,21 +9,21 @@ export class Physics {
   
       this.speedHistory = [];
       this.accelerationHistory = [];
-      this.period = 3000; // 5 seconds
+      this.period = 3000;//---------------- 5 seconds
       this.lastAverageTime = performance.now();
     }
   
     update() {
       const currentPosition = this.ship.getPosition();
       if (!currentPosition) {
-        return; // Exit if the ship's position is not available
+        return; 
       }
   
       const currentTime = performance.now();
       const timeDelta = (currentTime - this.previousTime) / 1000; // Convert ms to seconds
   
       if (timeDelta === 0) {
-        return; // Avoid division by zero
+        return; 
       }
   
       const dx = currentPosition.x - this.previousPosition.x;
@@ -36,7 +36,6 @@ export class Physics {
       const speedDelta = this.instantaneousSpeed - this.previousSpeed;
       this.instantaneousAcceleration = speedDelta / timeDelta;
   
-      // Store the instantaneous values
       this.speedHistory.push(this.instantaneousSpeed);
       this.accelerationHistory.push(this.instantaneousAcceleration);
   
@@ -44,11 +43,10 @@ export class Physics {
       this.previousTime = currentTime;
       this.previousSpeed = this.instantaneousSpeed;
   
-      // Calculate and display averages every 5 seconds
       if (currentTime - this.lastAverageTime >= this.period) {
         this.calculateAndDisplayAverages();
         this.lastAverageTime = currentTime;
-        // Clear the history after calculating the averages
+
         this.speedHistory = [];
         this.accelerationHistory = [];
       }

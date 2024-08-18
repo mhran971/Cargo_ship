@@ -22,7 +22,7 @@ export class Floating {
 
             this.adjustShipPositionBasedOnWeight(ship, W);
 
-            if (F < W && (this.variables.g > 7 || this.variables.g > 15)) {
+            if (F < W ||  this.variables.g > 15) {
                 this.sinkShip(ship);
             } else if (this.variables.g < 7) {
                 this.flyShip(ship);
@@ -31,11 +31,11 @@ export class Floating {
     }
 
     adjustShipPositionBasedOnWeight(ship, weight) {
-        if (weight > 54000000 && weight <= 64000000) {
+        if (weight > 540000000 && weight <= 640000000) {
             ship.updatePositionY(6.7);
-        } else if (weight > 44000000 && weight <= 54000000) {
+        } else if (weight > 440000000 && weight <= 540000000) {
             ship.updatePositionY(7.2);
-        } else if (weight > 0 && weight <= 44000000) {
+        } else if (weight > 0 && weight <= 440000000) {
             ship.updatePositionY(7.5);
         } else {
             console.warn("Weight is out of expected range.");

@@ -22,8 +22,8 @@ export class ThrustForce {
       const long_prop = this.variables.LP3 ** 4;
       const F3 = this.variables.R3 * this.variables.PR3 * w * long_prop;
       window.thr = F3;
-      const F3String = F3.toFixed(5); // Convert F3 to a string with 5 decimal places
-      window.totalforce += parseFloat(F3String); // Update window.totalforce with the corrected F3 value
+      const F3String = F3.toFixed(5); 
+      window.totalforce += parseFloat(F3String); 
       console.log(`\nForce of thrust: ${F3String}`);
     } else {
       console.log('Some variables are not set. Cannot calculate thrust force.');

@@ -25,15 +25,15 @@ export function setupGUI(water, ship) {
       if (num < 200000000) {
         window.firstDigit = 0.1;
       } else if (num < 300000000) {
-        window.firstDigit = 0.2;
+        window.firstDigit = 0.15;
       } else if (num < 400000000) {
-        window.firstDigit = 0.3;
+        window.firstDigit = 0.2;
       } else if (num < 500000000) {
-        window.firstDigit = 0.4;
+        window.firstDigit = 0.3;
       } else if (num < 600000000) {
-        window.firstDigit = 0.5;
+        window.firstDigit = 0.4;
       } else {
-        window.firstDigit = 0.6;
+        window.firstDigit = 0.5;
       }
     } else {
       window.firstDigit = 0;
