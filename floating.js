@@ -72,7 +72,7 @@ export class Floating {
             const elapsed = Date.now() - startTime;
             const progress = elapsed / duration;
             const deltaPos = (10 - this.variables.g) * progress;
-            ship.speed.pos += 1.5 * deltaPos;
+            ship.speed.pos += 1.2 * deltaPos;
 
             if (elapsed < duration) {
                 setTimeout(flyShipPosition, 16); 

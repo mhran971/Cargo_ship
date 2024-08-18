@@ -8,23 +8,23 @@ export class Ice {
         this.iceModel = null;
 
         const y = 17.5;
-        loader.load(
-            "assets/Ice/scene.gltf",
-            (gltf) => {
-                scene.add(gltf.scene);
-                gltf.scene.scale.set(25, 25, 25);
-                gltf.scene.position.set(0, y, 0);
-                this.iceModel = gltf.scene;
-                this.iceModel.boundingBox = new THREE.Box3().setFromObject(gltf.scene);
-                if (onLoadCallback) {
-                    onLoadCallback(this);
-                }
-            },
-            undefined, 
-            (error) => {
-                console.error('An error occurred while loading the GLTF model:', error);
-            }
-        );
+        // loader.load(
+        //     "assets/Ice/scene.gltf",
+        //     (gltf) => {
+        //         scene.add(gltf.scene);
+        //         gltf.scene.scale.set(25, 25, 25);
+        //         gltf.scene.position.set(0, y, 0);
+        //         this.iceModel = gltf.scene;
+        //         this.iceModel.boundingBox = new THREE.Box3().setFromObject(gltf.scene);
+        //         if (onLoadCallback) {
+        //             onLoadCallback(this);
+        //         }
+        //     },
+        //     undefined, 
+        //     (error) => {
+        //         console.error('An error occurred while loading the GLTF model:', error);
+        //     }
+        // );
     }
 
     updateBoundingBox() {

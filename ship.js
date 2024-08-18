@@ -70,6 +70,11 @@ export class Ship {
         }
     }
 
+    updatePositionY1(y) {
+        if (this.ship) {
+          this.ship.position.y += y;
+        }
+      }
     updatePositionY(y) {
         if (this.ship) {
             console.log(`Updating ship Y position from ${this.ship.position.y} to ${y}`);
